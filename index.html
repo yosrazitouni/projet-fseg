@@ -1,0 +1,833 @@
+<title>HER VOICE</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: glass sticky header, one view at a time via hash routing; lavender wash hero, alternating cream / lavender bands; concentric "voice rings" as the signature motif. */
+:root {
+  --bg: #FBF6EC;
+  --surface: #FFFDF8;
+  --soft: #EFE8FA;
+  --soft-2: #DFD2F3;
+  --lilac: #C6B2EA;
+  --ink: #2B1F40;
+  --muted: #655A7D;
+  --accent: #6B4A9E;
+  --accent-ink: #FFFDF8;
+  --accent-hover: #563784;
+  --line: #E6DCF0;
+  --shadow: 0 18px 40px -20px rgba(75, 46, 120, .35);
+  --shadow-sm: 0 6px 18px -10px rgba(75, 46, 120, .3);
+  --wash: radial-gradient(60% 70% at 85% 10%, #E4D8F6 0%, rgba(228, 216, 246, 0) 70%), radial-gradient(50% 60% at 0% 100%, #F3E9F6 0%, rgba(243, 233, 246, 0) 70%);
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius: 24px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1B1330; --surface: #271C3E; --soft: #2F2349; --soft-2: #433265; --lilac: #6B55A0;
+    --ink: #F6EFE1; --muted: #BFB3D8; --accent: #B79CEB; --accent-ink: #1B1330; --accent-hover: #CDB8F5;
+    --line: #3B2E58; --shadow: 0 18px 40px -20px rgba(0, 0, 0, .7); --shadow-sm: 0 6px 18px -10px rgba(0, 0, 0, .6);
+    --wash: radial-gradient(60% 70% at 85% 10%, #3A2A5E 0%, rgba(58, 42, 94, 0) 70%), radial-gradient(50% 60% at 0% 100%, #2A1E45 0%, rgba(42, 30, 69, 0) 70%);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1B1330; --surface: #271C3E; --soft: #2F2349; --soft-2: #433265; --lilac: #6B55A0;
+  --ink: #F6EFE1; --muted: #BFB3D8; --accent: #B79CEB; --accent-ink: #1B1330; --accent-hover: #CDB8F5;
+  --line: #3B2E58; --shadow: 0 18px 40px -20px rgba(0, 0, 0, .7); --shadow-sm: 0 6px 18px -10px rgba(0, 0, 0, .6);
+  --wash: radial-gradient(60% 70% at 85% 10%, #3A2A5E 0%, rgba(58, 42, 94, 0) 70%), radial-gradient(50% 60% at 0% 100%, #2A1E45 0%, rgba(42, 30, 69, 0) 70%);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.7;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 60; }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; line-height: 1.12; margin: 0; text-wrap: balance; letter-spacing: -.02em; font-variation-settings: "opsz" 96; }
+h1 { font-size: clamp(2.5rem, 7vw, 4.7rem); }
+h2 { font-size: clamp(1.8rem, 4.2vw, 2.7rem); }
+h3 { font-size: 1.35rem; letter-spacing: -.01em; }
+p { margin: 0; }
+a { color: var(--accent); text-underline-offset: 3px; }
+em { font-style: italic; color: var(--accent); font-weight: 400; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+.wrap { max-width: 1120px; margin-inline: auto; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: .78rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.eyebrow::before { content: ""; width: 26px; height: 2px; background: var(--lilac); border-radius: 2px; }
+.lead { font-size: 1.14rem; color: var(--muted); max-width: 58ch; }
+
+/* Header */
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding-inline: max(16px, env(safe-area-inset-left, 0px));
+  background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.bar { display: flex; align-items: center; gap: 14px; min-height: 72px; max-width: 1120px; margin-inline: auto; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 1.28rem; letter-spacing: .08em; }
+.brand svg { width: 36px; height: 36px; color: var(--accent); flex: none; }
+nav.main { margin-left: auto; display: flex; gap: 2px; }
+nav.main a { text-decoration: none; color: var(--ink); padding: 9px 15px; border-radius: 999px; font-weight: 500; font-size: .95rem; transition: background .2s, color .2s; white-space: nowrap; }
+nav.main a:hover { background: var(--soft); }
+nav.main a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.country-select { border: 1.5px solid var(--soft-2); color: var(--ink); background: var(--surface); border-radius: 999px; padding: 8px 10px; font: 600 .84rem var(--body); max-width: 150px; }
+.exit { border: 1.5px solid var(--soft-2); color: var(--ink); background: var(--surface); border-radius: 999px; padding: 8px 15px; font: 600 .84rem var(--body); cursor: pointer; white-space: nowrap; transition: background .2s, border-color .2s; }
+.exit:hover { background: var(--soft); border-color: var(--accent); }
+.burger { display: none; margin-left: auto; width: 44px; height: 44px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.burger span { display: block; width: 20px; height: 2px; background: currentColor; margin: 5px auto; border-radius: 2px; transition: transform .25s, opacity .25s; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (max-width: 900px) {
+  .burger { display: block; }
+  nav.main { position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; padding: 12px max(16px, env(safe-area-inset-left, 0px)) 20px; background: var(--bg); border-bottom: 1px solid var(--line); display: none; margin: 0; box-shadow: var(--shadow); }
+  nav.main.open { display: flex; animation: drop .25s ease both; }
+  nav.main a { padding: 14px 18px; font-size: 1.05rem; }
+}
+@media (max-width: 440px) { .brand span { font-size: 1.05rem; letter-spacing: .05em; } .exit { padding: 7px 11px; font-size: .78rem; } .bar { gap: 8px; } .brand svg { width: 30px; height: 30px; } }
+
+/* Views */
+.view { display: none; }
+.view.active { display: block; animation: rise .6s cubic-bezier(.2, .7, .2, 1) both; }
+section.block { padding-block: clamp(52px, 9vw, 104px); }
+section.tight { padding-block: clamp(36px, 6vw, 64px); }
+.band { margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); background: var(--soft); }
+.washed { margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); background: var(--wash); }
+.stack > * + * { margin-top: 18px; }
+.head { max-width: 720px; display: grid; gap: 16px; margin-bottom: clamp(28px, 5vw, 48px); }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 999px; padding: 14px 28px; font: 600 1rem var(--body); cursor: pointer; text-decoration: none; transition: transform .2s, box-shadow .2s, background .2s; min-height: 50px; }
+.btn svg { width: 18px; height: 18px; transition: transform .2s; }
+.btn:hover svg { transform: translateX(3px); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); box-shadow: var(--shadow-sm); }
+.btn.primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: var(--shadow); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--lilac); }
+.btn.ghost:hover { background: var(--soft); transform: translateY(-2px); }
+.btn.small { padding: 8px 18px; min-height: 40px; font-size: .9rem; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(28px, 6vw, 72px); align-items: center; padding-block: clamp(44px, 8vw, 104px); }
+.hero > * { min-width: 0; }
+.hero .stack { max-width: 650px; }
+.hero h1 em { display: inline-block; }
+.rings { position: relative; aspect-ratio: 1; max-width: 430px; width: 100%; margin-inline: auto; display: grid; place-items: center; }
+.rings i { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--lilac); animation: ring 7s ease-out infinite; opacity: 0; }
+.rings i:nth-child(2) { animation-delay: 2.3s; } .rings i:nth-child(3) { animation-delay: 4.6s; }
+.rings .core { position: relative; width: 64%; aspect-ratio: 1; border-radius: 50%; background: linear-gradient(150deg, var(--surface), var(--soft-2)); display: grid; place-items: center; text-align: center; padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--line); }
+.rings .core p { font-family: var(--display); font-size: clamp(1.25rem, 2.8vw, 1.7rem); line-height: 1.25; font-weight: 400; }
+@media (max-width: 880px) { .hero { grid-template-columns: 1fr; } .rings { max-width: 290px; order: -1; } }
+
+.trust { display: flex; flex-wrap: wrap; gap: 10px 22px; padding-top: 6px; color: var(--muted); font-size: .94rem; font-weight: 500; }
+.trust span { display: inline-flex; align-items: center; gap: 8px; }
+.trust svg { width: 18px; height: 18px; color: var(--accent); }
+
+/* Cards */
+.grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; display: grid; gap: 12px; align-content: start; min-width: 0; transition: transform .25s, box-shadow .25s, border-color .25s; }
+.card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--lilac); }
+.card .ico { width: 50px; height: 50px; border-radius: 16px; background: var(--soft); color: var(--accent); display: grid; place-items: center; }
+.card .ico svg { width: 25px; height: 25px; }
+.card p { color: var(--muted); font-size: .98rem; }
+.card a.more { font-weight: 600; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; margin-top: 4px; }
+.card a.more:hover { text-decoration: underline; }
+.notice { background: var(--surface); border: 1.5px dashed var(--lilac); border-radius: 16px; padding: 14px 18px; font-size: .92rem; color: var(--muted); }
+.notice strong { color: var(--ink); }
+.pull { font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(1.5rem, 3.6vw, 2.3rem); line-height: 1.35; max-width: 24em; text-wrap: balance; }
+.steps { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); counter-reset: s; }
+.step { display: grid; gap: 10px; align-content: start; padding-top: 18px; border-top: 2px solid var(--lilac); }
+.step b { font-family: var(--display); font-size: 1.1rem; color: var(--accent); font-weight: 500; }
+.step p { color: var(--muted); }
+
+/* Tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.tab { border: 1.5px solid var(--soft-2); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 10px 20px; font: 600 .95rem var(--body); cursor: pointer; transition: background .2s, transform .2s; min-height: 44px; }
+.tab:hover { background: var(--soft); transform: translateY(-1px); }
+.tab[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(22px, 4vw, 38px); display: grid; gap: 14px; animation: rise .4s ease both; box-shadow: var(--shadow-sm); }
+.panel ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; color: var(--muted); }
+.panel ul li::marker { color: var(--accent); }
+
+/* Lines */
+.lines { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.line { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px 26px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.line .num { font-family: var(--display); font-size: 2.3rem; font-weight: 500; color: var(--accent); line-height: 1.05; letter-spacing: .01em; }
+.line small { color: var(--muted); font-size: .92rem; line-height: 1.5; }
+.line .btn { justify-self: start; margin-top: 8px; }
+
+/* Phrases */
+.phrase { display: flex; gap: 14px; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px 14px 22px; flex-wrap: wrap; }
+.phrase + .phrase { margin-top: 12px; }
+.phrase q { font-family: var(--display); font-size: 1.12rem; quotes: "« " " »"; flex: 1 1 260px; min-width: 0; }
+
+/* Details */
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 4px 22px; transition: border-color .2s; }
+details[open] { border-color: var(--lilac); }
+details + details { margin-top: 12px; }
+summary { cursor: pointer; font-weight: 600; padding: 16px 0; list-style: none; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 1.6rem; line-height: 1; color: var(--accent); transition: transform .25s; flex: none; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { color: var(--muted); padding-bottom: 18px; }
+
+/* Breathing */
+.breath { display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+.breath > * { min-width: 0; }
+.orb { width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--soft-2), var(--accent)); transform: scale(.7); transition: transform 4s ease-in-out; box-shadow: var(--shadow); }
+.orb.in { transform: scale(1.1); } .orb.hold { transition-duration: .3s; } .orb.out { transform: scale(.7); transition-duration: 6s; }
+.breath .phase { font-family: var(--display); font-size: 1.7rem; min-height: 2.4rem; font-weight: 400; }
+@media (max-width: 560px) { .breath { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
+
+/* Checklist */
+.checks { display: grid; gap: 12px; }
+.check { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; cursor: pointer; transition: border-color .2s; }
+.check:hover { border-color: var(--lilac); }
+.check input { width: 22px; height: 22px; accent-color: var(--accent); margin-top: 3px; flex: none; }
+.check input:checked + span { text-decoration: line-through; color: var(--muted); }
+.meter { height: 8px; border-radius: 99px; background: var(--soft-2); overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .4s ease; }
+
+/* Agir */
+.five { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.five .card { padding: 24px; }
+.five .card h3 { font-size: 1.2rem; }
+.choices { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { border: 1.5px solid var(--soft-2); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 10px 20px; font: 600 .95rem var(--body); cursor: pointer; min-height: 44px; transition: background .2s, transform .2s; }
+.chip:hover { transform: translateY(-2px); background: var(--soft); }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.result { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(22px, 4vw, 34px); margin-top: 20px; display: grid; gap: 12px; animation: rise .4s ease both; box-shadow: var(--shadow-sm); }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+.split > * { min-width: 0; }
+@media (max-width: 800px) { .split { grid-template-columns: 1fr; } }
+
+/* Testimonials */
+.wall { columns: 3 290px; column-gap: 22px; }
+.quote { break-inside: avoid; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; margin-bottom: 22px; display: grid; gap: 16px; animation: rise .5s ease both; }
+.quote .mark { font-family: var(--display); font-size: 3rem; line-height: .6; color: var(--lilac); height: 22px; }
+.quote p { font-family: var(--display); font-size: 1.14rem; line-height: 1.55; font-weight: 400; }
+.quote footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: .85rem; color: var(--muted); }
+.tag { background: var(--soft); border-radius: 999px; padding: 4px 13px; font-weight: 600; color: var(--ink); font-size: .78rem; }
+.like { border: 1.5px solid var(--soft-2); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 13px; font: 600 .85rem var(--body); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; min-height: 38px; transition: background .2s; }
+.like:hover { background: var(--soft); }
+.like[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.like svg { width: 16px; height: 16px; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 14px 24px; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+.toolbar .tabs { margin: 0; }
+.count-line { color: var(--muted); font-size: .92rem; font-weight: 500; }
+.sort { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; font-weight: 600; }
+.sort select { width: auto; padding: 8px 12px; }
+
+/* Forms */
+form.f { display: grid; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(22px, 4vw, 36px); box-shadow: var(--shadow-sm); }
+label { font-weight: 600; font-size: .95rem; display: grid; gap: 8px; }
+select, textarea { width: 100%; font: inherit; font-weight: 400; color: var(--ink); background: var(--bg); border: 1.5px solid var(--soft-2); border-radius: 14px; padding: 13px 15px; transition: border-color .2s; }
+select:hover, textarea:hover { border-color: var(--lilac); }
+textarea { min-height: 150px; resize: vertical; }
+.count { font-size: .82rem; color: var(--muted); text-align: right; font-weight: 500; }
+.ok { background: var(--soft); border-radius: 16px; padding: 16px 20px; animation: rise .4s ease both; }
+.err { color: var(--accent-hover); font-weight: 600; }
+
+/* Footer */
+footer.site { margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding: 56px max(16px, env(safe-area-inset-left, 0px)) 48px; background: var(--ink); color: var(--bg); }
+footer.site .wrap { display: grid; gap: 32px; grid-template-columns: 1.3fr 1fr 1fr; }
+footer.site .wrap > * { min-width: 0; }
+footer.site a { color: var(--soft-2); text-decoration: none; }
+footer.site a:hover { text-decoration: underline; }
+footer.site .brand { color: var(--bg); }
+footer.site .brand svg { color: var(--lilac); }
+footer.site small { opacity: .8; font-size: .9rem; line-height: 1.6; display: block; margin-top: 14px; max-width: 46ch; }
+footer.site h4 { margin: 0 0 12px; font: 700 .78rem var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--lilac); }
+footer.site ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+@media (max-width: 760px) { footer.site .wrap { grid-template-columns: 1fr; } }
+
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 30px); background: var(--ink); color: var(--bg); padding: 13px 22px; border-radius: 999px; font-weight: 600; font-size: .92rem; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; z-index: 80; max-width: calc(100% - 32px); text-align: center; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+#hidden-screen { position: fixed; inset: 0; z-index: 100; background: var(--bg); display: grid; place-items: center; text-align: center; padding: 24px; }
+#hidden-screen[hidden] { display: none !important; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes drop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+@keyframes ring { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(1.08); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+    <circle cx="14" cy="20" r="4.5" fill="currentColor" stroke="none"/>
+    <path d="M22 12.5a10 10 0 0 1 0 15"/><path d="M28 8a16 16 0 0 1 0 24"/><path d="M34 4a22 22 0 0 1 0 32" opacity=".5"/>
+  </symbol>
+  <symbol id="heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3 5 6.5 5c2 0 3.700 1.200 5.500 3.300C13.800 6.200 15.500 5 17.500 5 21 5 22.800 8.600 21.500 11.800 19.500 16.400 12 21 12 21z"/></symbol>
+  <symbol id="ear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a6 6 0 0 1 12 0c0 3-2 4-3 5.500s-.5 4-3.500 4a3 3 0 0 1-3-3"/><path d="M9.500 8.500a2.500 2.500 0 0 1 5 0"/></symbol>
+  <symbol id="book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/></symbol>
+  <symbol id="hands" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.500"/><path d="M3 20c0-3.500 2.700-6 6-6s6 2.500 6 6"/><path d="M16 14.500c2.900-.3 5 1.700 5 4.500"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.500" y="10.500" width="15" height="10" rx="3"/><path d="M8 10.500V8a4 4 0 0 1 8 0v2.500"/></symbol>
+  <symbol id="gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.500" y="9" width="17" height="11" rx="2.500"/><path d="M12 9v11M3.500 13h17M12 9c-1-3-4.500-4-4.500-1.500S10.500 9 12 9zm0 0c1-3 4.500-4 4.500-1.500S13.500 9 12 9z"/></symbol>
+  <symbol id="leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19c2-4 5-7 9-9"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="#accueil" aria-label="HER VOICE, accueil"><svg><use href="#mark"/></svg><span>HER VOICE</span></a>
+    <nav class="main" id="nav" aria-label="Navigation principale">
+      <a href="#accueil">Accueil</a>
+      <a href="#ressources">Support HER VOICE</a>
+      <a href="#agir">Agir avec HER VOICE</a>
+      <a href="#temoignages">Témoignages</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <label class="sr-only" for="countrySelect">Choisir votre pays</label><select class="country-select" id="countrySelect" aria-label="Choisir votre pays"><option value="TN">🇹🇳 Tunisie</option><option value="FR">🇫🇷 France</option></select>
+    <button class="exit" id="exit" type="button" title="Masque immédiatement cette page">Quitter vite</button>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ACCUEIL -->
+<div class="view" id="v-accueil">
+  <div class="washed"><div class="wrap">
+    <div class="hero">
+      <div class="stack">
+        <p class="eyebrow">Un espace sûr, doux et sans jugement</p>
+        <h1>Votre voix compte. <em>Nous vous croyons.</em></h1>
+        <p class="lead">HER VOICE accompagne les femmes qui vivent du harcèlement : dans la rue, au travail, en ligne ou ailleurs. Vous pouvez comprendre ce qui se passe, trouver de l’aide et parler à votre rythme.</p>
+        <div class="row">
+          <a class="btn primary" href="#ressources">Trouver de l’aide <svg><use href="#arrow"/></svg></a>
+          <a class="btn ghost" href="#temoignages">Lire des témoignages</a>
+        </div>
+        <div class="trust"><span><svg><use href="#lock"/></svg>Anonyme</span><span><svg><use href="#heart"/></svg>Sans jugement</span><span><svg><use href="#leaf"/></svg>À votre rythme</span></div>
+        <p class="notice" id="homeEmergency"><strong>Si vous êtes en danger immédiat,</strong> en Tunisie, appelez la police au 197 ou la protection civile au 198.</p>
+      </div>
+      <div class="rings" aria-hidden="true">
+        <i></i><i></i><i></i>
+        <div class="core"><p>Vous n’êtes<br><em>pas seule.</em></p></div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="wrap"><section class="block">
+    <div class="head"><p class="eyebrow">Ce que nous proposons</p><h2>Trois façons d’être soutenue</h2></div>
+    <div class="grid">
+      <article class="card"><div class="ico"><svg><use href="#ear"/></svg></div><h3>Être écoutée</h3><p>Des contacts d’écoute et des conseils pour savoir quoi dire, et à qui, sans être obligée de tout raconter d’un coup.</p><a class="more" href="#ressources">Voir le support <svg width="16" height="16"><use href="#arrow"/></svg></a></article>
+      <article class="card"><div class="ico"><svg><use href="#book"/></svg></div><h3>Comprendre ses droits</h3><p>Des fiches claires pour reconnaître le harcèlement, garder des traces et connaître les démarches possibles.</p><a class="more" href="#ressources">Voir les ressources <svg width="16" height="16"><use href="#arrow"/></svg></a></article>
+      <article class="card"><div class="ico"><svg><use href="#hands"/></svg></div><h3>Agir ensemble</h3><p>Réagir en tant que témoin, former son équipe, soutenir une amie : chacun peut faire bouger les choses.</p><a class="more" href="#agir">Passer à l’action <svg width="16" height="16"><use href="#arrow"/></svg></a></article>
+    </div>
+  </section></div>
+
+  <div class="band"><div class="wrap"><section class="block">
+    <div class="head"><p class="eyebrow">Par où commencer</p><h2>Un pas après l’autre</h2><p class="lead">Il n’y a pas de bonne ou de mauvaise façon de faire. Voici un chemin possible, que vous pouvez suivre en partie ou dans le désordre.</p></div>
+    <div class="steps">
+      <div class="step"><b>1 · Respirer</b><h3>Prendre un moment pour vous</h3><p>Un exercice de respiration et des mots simples pour retrouver un peu de calme.</p></div>
+      <div class="step"><b>2 · Comprendre</b><h3>Mettre des mots sur ce qui arrive</h3><p>Des fiches pour reconnaître la situation et savoir ce qui est autorisé ou non.</p></div>
+      <div class="step"><b>3 · Parler</b><h3>Choisir qui prévenir</h3><p>Une personne de confiance, une ligne d’écoute ou une association : vous décidez.</p></div>
+      <div class="step"><b>4 · Agir</b><h3>Décider de la suite</h3><p>Garder des traces, alerter, porter plainte ou simplement attendre. Tout est possible.</p></div>
+    </div>
+  </section></div></div>
+
+  <div class="wrap"><section class="block stack">
+    <p class="eyebrow">Ce que nous répétons</p>
+    <p class="pull">« Ce n’est pas de votre faute. Ce que vous ressentez est légitime, et vous avez le droit de demander de l’aide. »</p>
+    <div class="row" style="padding-top:8px"><a class="btn primary" href="#agir">Agir avec HER VOICE <svg><use href="#arrow"/></svg></a><a class="btn ghost" href="#contact">Nous écrire</a></div>
+  </section></div>
+</div>
+
+<!-- SUPPORT -->
+<div class="view" id="v-ressources">
+  <div class="washed"><div class="wrap">
+    <section class="block">
+      <div class="head" style="margin-bottom:28px"><p class="eyebrow">Support HER VOICE</p><h1>Vous méritez d’être <em>aidée</em></h1><p class="lead">Prenez ce dont vous avez besoin, quand vous en avez besoin. Il n’y a pas d’ordre à suivre.</p></div>
+      <p class="notice"><strong>Important.</strong> Choisissez votre pays en haut de la page pour afficher les contacts correspondants. En cas de danger immédiat, contactez directement les services d’urgence de votre pays.</p>
+    </section>
+  </div></div>
+
+  <div class="wrap"><section class="block">
+    <div class="head"><p class="eyebrow">Reconnaître</p><h2>Quelle situation vivez-vous ?</h2></div>
+    <div class="tabs" role="tablist" aria-label="Types de harcèlement" id="tabs"></div>
+    <div class="panel" id="tabpanel" role="tabpanel" aria-live="polite"></div>
+  </section></div>
+
+  <div class="band"><div class="wrap"><section class="block">
+    <div class="head"><p class="eyebrow">Parler à quelqu’un</p><h2>Numéros utiles</h2><p class="lead">Ces services sont gratuits et confidentiels. Vous pouvez appeler simplement pour poser une question.</p></div>
+    <p class="lead" id="countryHelpIntro">Contacts utiles en Tunisie. Si vous êtes en danger immédiat, appelez les secours.</p>
+    <div class="lines" id="emergencyLines" aria-live="polite"></div>
+    <p class="notice" id="countryHelpNote">Les numéros d’urgence sont affichés selon le pays choisi. Les disponibilités et conditions peuvent varier selon la zone.</p>
+  </section></div></div>
+
+  <div class="wrap"><section class="block">
+    <div class="head"><p class="eyebrow">Vers qui se tourner</p><h2>Les personnes qui peuvent vous aider</h2></div>
+    <div class="grid">
+      <article class="card"><h3>Une personne de confiance</h3><p>Une amie, une sœur, un collègue. Il suffit parfois de dire « j’ai besoin d’en parler » pour se sentir moins seule.</p></article>
+      <article class="card"><h3>Une association d’aide aux victimes</h3><p>Des professionnelles formées écoutent, informent et accompagnent gratuitement dans les démarches.</p></article>
+      <article class="card"><h3>Un professionnel de santé</h3><p>Un médecin ou un psychologue peut prendre soin de vous et écrire ce qui vous arrive dans votre dossier médical.</p></article>
+      <article class="card"><h3>Un service juridique</h3><p>Une permanence juridique gratuite explique vos droits et les options possibles, sans vous obliger à agir.</p></article>
+    </div>
+  </section></div>
+
+  <div class="band"><div class="wrap"><section class="block split">
+    <div class="stack">
+      <p class="eyebrow">Poser une limite</p>
+      <h2>Des phrases prêtes à l’emploi</h2>
+      <p class="lead">Quand on est sous le choc, les mots manquent. Gardez ces phrases en tête ou copiez-les pour les utiliser par message.</p>
+    </div>
+    <div>
+      <div class="phrase"><q>Arrêtez. Je ne suis pas d’accord avec ce comportement.</q><button class="btn ghost small" data-copy="Arrêtez. Je ne suis pas d’accord avec ce comportement." type="button">Copier</button></div>
+      <div class="phrase"><q>Ce que vous dites me met mal à l’aise. Ne recommencez pas.</q><button class="btn ghost small" data-copy="Ce que vous dites me met mal à l’aise. Ne recommencez pas." type="button">Copier</button></div>
+      <div class="phrase"><q>Je ne souhaite pas poursuivre cette conversation.</q><button class="btn ghost small" data-copy="Je ne souhaite pas poursuivre cette conversation." type="button">Copier</button></div>
+      <div class="phrase"><q>Je garde une trace de ces messages.</q><button class="btn ghost small" data-copy="Je garde une trace de ces messages." type="button">Copier</button></div>
+    </div>
+  </section></div></div>
+
+  <div class="wrap"><section class="block split">
+    <div class="stack">
+      <p class="eyebrow">Se poser un instant</p>
+      <h2>Respirer, tout simplement</h2>
+      <p class="lead">Un exercice de cohérence cardiaque : inspirez, retenez, expirez. Une minute suffit pour apaiser le corps.</p>
+      <button class="btn primary" id="breathBtn" type="button">Commencer</button>
+    </div>
+    <div class="breath" aria-live="polite"><div class="orb" id="orb"></div><div class="phase" id="phase">Prête quand vous l’êtes.</div></div>
+  </section></div>
+
+  <div class="band"><div class="wrap"><section class="block split">
+    <div class="stack">
+      <p class="eyebrow">Garder des traces</p>
+      <h2>Rassembler vos preuves, à votre rythme</h2>
+      <p class="lead">Des éléments datés peuvent aider si vous décidez de porter plainte ou d’alerter votre employeur. Cochez ce que vous avez déjà fait.</p>
+      <div class="meter" aria-hidden="true"><i id="meterFill"></i></div>
+      <p id="meterTxt" class="count" style="text-align:left">0 sur 5 étapes faites</p>
+    </div>
+    <div class="checks" id="checks">
+      <label class="check"><input type="checkbox"><span>Noter la date, l’heure et le lieu de chaque fait.</span></label>
+      <label class="check"><input type="checkbox"><span>Faire des captures d’écran des messages.</span></label>
+      <label class="check"><input type="checkbox"><span>Noter le nom des personnes présentes.</span></label>
+      <label class="check"><input type="checkbox"><span>Sauvegarder les preuves hors de votre téléphone.</span></label>
+      <label class="check"><input type="checkbox"><span>En parler à une personne de confiance.</span></label>
+    </div>
+  </section></div></div>
+
+  <div class="wrap"><section class="block">
+    <div class="head"><p class="eyebrow">Questions fréquentes</p><h2>Ce que l’on nous demande souvent</h2></div>
+    <details><summary>Est-ce vraiment du harcèlement ?</summary><p>Si un comportement vous met mal à l’aise, vous fait peur ou se répète malgré votre refus, il mérite d’être pris au sérieux. Vous n’avez pas à prouver que « c’est assez grave » pour demander de l’aide.</p></details>
+    <details><summary>Dois-je porter plainte ?</summary><p>Non, ce n’est jamais obligatoire. Vous pouvez d’abord en parler, vous informer, garder des traces et décider plus tard. C’est vous qui choisissez.</p></details>
+    <details><summary>Et si on ne me croit pas ?</summary><p>Cela arrive, et c’est injuste. Tournez-vous vers une association ou une ligne d’écoute : des personnes formées sauront vous croire et vous orienter.</p></details>
+    <details><summary>Puis-je rester anonyme ?</summary><p>Oui, pour appeler une ligne d’écoute ou lire ce site, vous n’avez pas à donner votre nom. Certaines démarches officielles demandent ensuite de vous identifier : on vous l’expliquera avant.</p></details>
+    <details><summary>Ce site garde-t-il mes informations ?</summary><p>Non. Dans cette démonstration, aucune donnée personnelle n’est demandée, envoyée ni enregistrée.</p></details>
+  </section></div>
+</div>
+
+<!-- AGIR -->
+<div class="view" id="v-agir">
+  <div class="washed"><div class="wrap">
+    <section class="block">
+      <div class="head"><p class="eyebrow">Agir avec HER VOICE</p><h1>Chaque geste <em>change quelque chose</em></h1><p class="lead">Vous avez été témoin d’une situation, vous voulez soutenir une proche ou former votre équipe ? Voici par où commencer.</p></div>
+      <div class="head" style="margin-bottom:18px"><h2>Je veux…</h2></div>
+      <div class="choices" id="choices" role="group" aria-label="Choisir une action"></div>
+      <div class="result" id="result" aria-live="polite"></div>
+    </section>
+  </div></div>
+
+  <div class="wrap"><section class="block">
+    <div class="head"><p class="eyebrow">Si vous êtes témoin</p><h2>Les 5 façons d’intervenir</h2><p class="lead">Vous n’avez pas à être héroïque. Choisissez l’option la plus sûre pour vous et pour la personne visée.</p></div>
+    <div class="five">
+      <article class="card"><h3>Distraire</h3><p>Posez une question banale à la personne harcelée : l’heure, la direction. L’attention se déplace.</p></article>
+      <article class="card"><h3>Déléguer</h3><p>Prévenez un agent, un responsable ou un employé du lieu qui peut intervenir.</p></article>
+      <article class="card"><h3>Documenter</h3><p>Notez ou filmez à distance, puis donnez-le à la personne concernée si elle le souhaite.</p></article>
+      <article class="card"><h3>Diriger</h3><p>Dites calmement que le comportement est inacceptable, si vous vous sentez en sécurité.</p></article>
+      <article class="card"><h3>Différer</h3><p>Après coup, demandez à la personne comment elle va et si vous pouvez l’aider.</p></article>
+    </div>
+  </section></div>
+
+  <div class="band"><div class="wrap"><section class="block split">
+    <div class="stack">
+      <p class="eyebrow">Mon engagement</p>
+      <h2>Je m’engage à…</h2>
+      <p class="lead">Cochez ce que vous êtes prête à faire. Cela reste sur votre écran, sans être enregistré.</p>
+      <p id="pledgeTxt" class="count" style="text-align:left; font-size:.95rem">Aucun engagement pour l’instant.</p>
+    </div>
+    <div class="checks" id="pledges">
+      <label class="check"><input type="checkbox"><span>Croire une personne qui me parle de harcèlement.</span></label>
+      <label class="check"><input type="checkbox"><span>Ne pas rire des remarques qui rabaissent les femmes.</span></label>
+      <label class="check"><input type="checkbox"><span>Intervenir quand je suis témoin, de la façon la plus sûre.</span></label>
+      <label class="check"><input type="checkbox"><span>Partager les numéros d’aide autour de moi.</span></label>
+    </div>
+  </section></div></div>
+
+  <div class="wrap"><section class="block split">
+    <div class="stack">
+      <p class="eyebrow">Soutenir</p>
+      <h2>Faire un don</h2>
+      <p class="lead">Les dons financeraient des ateliers, des formations et la diffusion de ce site.</p>
+      <p class="notice"><strong>Démonstration.</strong> Aucun paiement n’est possible ici et aucune donnée bancaire n’est demandée.</p>
+    </div>
+    <div class="stack">
+      <div class="choices" id="amounts" role="group" aria-label="Montant du don (démo)">
+        <button class="chip" type="button" aria-pressed="false" data-v="5">5 €</button>
+        <button class="chip" type="button" aria-pressed="true" data-v="15">15 €</button>
+        <button class="chip" type="button" aria-pressed="false" data-v="30">30 €</button>
+        <button class="chip" type="button" aria-pressed="false" data-v="50">50 €</button>
+      </div>
+      <p id="donMsg" class="lead" style="font-size:1rem">15 € permettent d’imprimer 100 fiches d’information (exemple).</p>
+      <button class="btn primary" id="donBtn" type="button">Faire un don (démo) <svg><use href="#gift"/></svg></button>
+    </div>
+  </section></div>
+</div>
+
+<!-- TEMOIGNAGES -->
+<div class="view" id="v-temoignages">
+  <div class="washed"><div class="wrap">
+    <section class="block">
+      <div class="head" style="margin-bottom:28px"><p class="eyebrow">Témoignages anonymes</p><h1>Des voix qui <em>s’élèvent</em></h1><p class="lead">Ces témoignages sont des exemples inventés pour la démonstration. Ils montrent comment l’espace fonctionnerait : sans nom, sans visage, avec respect.</p></div>
+      <p class="notice"><strong>Avant de lire.</strong> Ces récits parlent de harcèlement. Lisez-les quand vous vous sentez prête, et faites une pause si besoin. Le bouton « Quitter vite » reste en haut de l’écran.</p>
+    </section>
+  </div></div>
+
+  <div class="wrap"><section class="block tight">
+    <div class="toolbar">
+      <div class="tabs" id="filters" role="group" aria-label="Filtrer par lieu"></div>
+      <label class="sort" for="sort">Trier par
+        <select id="sort"><option value="new">Les plus récents</option><option value="touch">Les plus touchants</option></select>
+      </label>
+    </div>
+    <p class="count-line" id="countLine" role="status"></p>
+    <div class="wall" id="wall" style="margin-top:20px"></div>
+  </section></div>
+
+  <div class="band"><div class="wrap"><section class="block split">
+    <div class="stack">
+      <p class="eyebrow">Partager à votre tour</p>
+      <h2>Écrire sans vous nommer</h2>
+      <p class="lead">Racontez ce que vous souhaitez, avec vos mots. Ne mettez ni nom, ni adresse, ni numéro de téléphone.</p>
+      <p class="notice"><strong>Démonstration.</strong> Votre texte apparaît seulement sur votre écran, jusqu’à ce que vous quittiez la page. Rien n’est envoyé ni enregistré.</p>
+    </div>
+    <form class="f" id="tForm" novalidate>
+      <label for="tPlace">Où cela s’est-il passé ?
+        <select id="tPlace"><option>Au travail</option><option>Dans la rue</option><option>En ligne</option><option>Aux études</option><option>Ailleurs</option></select>
+      </label>
+      <label for="tText">Votre témoignage
+        <textarea id="tText" maxlength="500" placeholder="Écrivez ici, avec vos mots…"></textarea>
+        <span class="count" id="tCount">0 / 500</span>
+      </label>
+      <button class="btn primary" type="submit">Publier anonymement (démo)</button>
+      <p id="tMsg" role="status"></p>
+    </form>
+  </section></div></div>
+</div>
+
+<!-- CONTACT -->
+<div class="view" id="v-contact">
+  <div class="washed"><div class="wrap">
+    <section class="block split">
+      <div class="stack">
+        <p class="eyebrow">Contact</p>
+        <h1>Nous sommes <em>à l’écoute</em></h1>
+        <p class="lead">Une question, une idée de partenariat, une envie de rejoindre l’équipe ? Écrivez-nous. Nous ne vous demandons ni nom ni adresse e-mail.</p>
+        <div class="line"><strong>Écrire à l’équipe (exemple)</strong><span class="num" style="font-size:1.25rem; word-break:break-all">contact@hervoice.example</span><button class="btn ghost small" data-copy="contact@hervoice.example" type="button">Copier l’adresse</button></div>
+        <p class="notice" id="contactEmergency"><strong>Besoin d’aide maintenant ?</strong> Ce formulaire ne répond pas aux urgences. En Tunisie, appelez le 197 (police) ou le 198 (protection civile).</p>
+      </div>
+      <form class="f" id="cForm" novalidate>
+        <label for="cTopic">Sujet
+          <select id="cTopic"><option>Une question</option><option>Devenir bénévole</option><option>Proposer un partenariat</option><option>Un autre sujet</option></select>
+        </label>
+        <label for="cText">Votre message
+          <textarea id="cText" maxlength="800" placeholder="Votre message…"></textarea>
+          <span class="count" id="cCount">0 / 800</span>
+        </label>
+        <button class="btn primary" type="submit">Envoyer (démo)</button>
+        <p id="cMsg" role="status"></p>
+        <p class="count" style="text-align:left">Démonstration : le message n’est ni envoyé ni enregistré.</p>
+      </form>
+    </section>
+  </div></div>
+
+  <div class="wrap"><section class="block">
+    <div class="head"><p class="eyebrow">Autres façons de nous joindre</p><h2>Choisissez ce qui vous convient</h2></div>
+    <div class="grid">
+      <article class="card"><div class="ico"><svg><use href="#hands"/></svg></div><h3>Devenir bénévole</h3><p>Animer un atelier, relire des textes ou traduire des fiches : toute aide compte. Choisissez « Devenir bénévole » dans le formulaire.</p></article>
+      <article class="card"><div class="ico"><svg><use href="#book"/></svg></div><h3>Partenariats</h3><p>Associations, établissements et entreprises peuvent proposer une collaboration pour diffuser l’information.</p></article>
+      <article class="card"><div class="ico"><svg><use href="#ear"/></svg></div><h3>Besoin d’être écoutée ?</h3><p>Pour parler à quelqu’un, rendez-vous sur la page support : des numéros d’écoute gratuits y sont indiqués.</p><a class="more" href="#ressources">Aller au support <svg width="16" height="16"><use href="#arrow"/></svg></a></article>
+    </div>
+  </section></div>
+
+  <div class="band"><div class="wrap"><section class="block">
+    <div class="head"><p class="eyebrow">Avant d’écrire</p><h2>Réponses rapides</h2></div>
+    <details><summary>En combien de temps répondez-vous ?</summary><p>Dans une vraie version, l’équipe répondrait sous quelques jours ouvrés. Pour une urgence, appelez directement les numéros d’aide.</p></details>
+    <details><summary>Dois-je donner mon nom ?</summary><p>Non. Le formulaire ne contient aucun champ pour votre nom, votre e-mail ou votre téléphone.</p></details>
+    <details><summary>Puis-je proposer un témoignage par ce formulaire ?</summary><p>Utilisez plutôt la page « Témoignages », prévue pour cela, avec les mêmes garanties d’anonymat.</p></details>
+  </section></div></div>
+</div>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#accueil"><svg><use href="#mark"/></svg><span>HER VOICE</span></a>
+      <small>Site de démonstration : les témoignages sont fictifs et les formulaires ne transmettent pas de messages. Vérifiez les informations locales avant de vous y fier. En cas de danger immédiat, utilisez les numéros d’urgence affichés pour le pays sélectionné.</small>
+    </div>
+    <div><h4>Explorer</h4><ul><li><a href="#accueil">Accueil</a></li><li><a href="#ressources">Support HER VOICE</a></li><li><a href="#agir">Agir avec HER VOICE</a></li></ul></div>
+    <div><h4>S’exprimer</h4><ul><li><a href="#temoignages">Témoignages anonymes</a></li><li><a href="#contact">Contact</a></li></ul></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="hidden-screen" hidden>
+  <div class="stack"><h2>Page fermée</h2><p class="lead" style="margin-inline:auto">Vous avez quitté HER VOICE.</p><a class="btn primary" href="https://fr.wikipedia.org" target="_blank" rel="noopener">Ouvrir un autre site</a><br><button class="btn ghost small" id="back" type="button">Revenir</button></div>
+</div>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var routes = ["accueil", "ressources", "agir", "temoignages", "contact"];
+
+  /* Navigation */
+  var burger = $("#burger"), nav = $("#nav");
+  function closeMenu() { nav.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); burger.setAttribute("aria-label", "Ouvrir le menu"); }
+  function show() {
+    var h = (location.hash || "#accueil").slice(1);
+    if (routes.indexOf(h) < 0) h = "accueil";
+    $$(".view").forEach(function (v) { v.classList.toggle("active", v.id === "v-" + h); });
+    $$("nav.main a").forEach(function (a) { if (a.getAttribute("href") === "#" + h) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+    closeMenu();
+    window.scrollTo(0, 0);
+  }
+  burger.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", String(open));
+    burger.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+  });
+  window.addEventListener("hashchange", show);
+  show();
+
+  /* Country-specific support contacts */
+  var countrySelect = $("#countrySelect");
+  var contactSets = {
+    TN: {
+      intro: "Contacts utiles en Tunisie. Si vous êtes en danger immédiat, appelez les secours.",
+      note: "Police : 197 (en ville) ; Garde nationale : 193 (zones rurales) ; Protection civile : 198 ; SAMU : 190. Le 1899 est référencé comme ligne d’écoute contre les violences faites aux femmes ; vérifiez sa disponibilité avant de compter dessus.",
+      home: "<strong>Si vous êtes en danger immédiat,</strong> en Tunisie, appelez la police au 197 ou la protection civile au 198.",
+      contact: "<strong>Besoin d’aide maintenant ?</strong> Ce formulaire ne répond pas aux urgences. En Tunisie, appelez le 197 (police) ou le 198 (protection civile).",
+      rows: [
+        ["197", "Police secours", "Police en ville, en cas de danger ou d’infraction nécessitant une intervention rapide."],
+        ["193", "Garde nationale", "Police / Garde nationale dans les zones rurales et les petites localités."],
+        ["198", "Protection civile", "Incendie, accident et secours d’urgence."],
+        ["190", "SAMU", "Urgence médicale."],
+        ["1899", "Ligne d’écoute violences faites aux femmes", "Ligne d’écoute référencée pour les violences faites aux femmes ; vérifiez les horaires et la disponibilité locale."]
+      ]
+    },
+    FR: {
+      intro: "Contacts utiles en France. Si vous êtes en danger immédiat, appelez les secours.",
+      note: "Le 17 est destiné à la police / gendarmerie en cas d’urgence ; le 112 est le numéro d’urgence européen. Le 3919 informe et oriente les femmes victimes de violences, mais ne remplace pas les services d’urgence.",
+      home: "<strong>Si vous êtes en danger immédiat,</strong> en France, appelez le 17 ou le 112.",
+      contact: "<strong>Besoin d’aide maintenant ?</strong> Ce formulaire ne répond pas aux urgences. En France, appelez le 3919 pour écoute et orientation, ou le 17 / 112 en cas de danger immédiat.",
+      rows: [
+        ["3919", "Violences Femmes Info", "Écoute, information et orientation pour les femmes victimes de violences ; ce n’est pas un numéro d’urgence."],
+        ["17", "Police secours", "En cas de danger immédiat ou d’infraction nécessitant une intervention rapide."],
+        ["112", "Urgence européenne", "Numéro d’urgence général en France et dans l’Union européenne."],
+        ["15", "Urgences médicales (SAMU)", "En cas d’urgence médicale."],
+        ["114", "Urgence accessible", "Pour les personnes sourdes, malentendantes ou qui ne peuvent pas parler ; service adapté par SMS, application ou internet."]
+      ]
+    }
+  };
+  function renderContacts() {
+    var key = countrySelect.value === "FR" ? "FR" : "TN";
+    var data = contactSets[key];
+    $("#countryHelpIntro").textContent = data.intro;
+    $("#countryHelpNote").textContent = data.note;
+    $("#homeEmergency").innerHTML = data.home;
+    $("#contactEmergency").innerHTML = data.contact;
+    var list = $("#emergencyLines");
+    list.innerHTML = "";
+    data.rows.forEach(function (item) {
+      var line = document.createElement("div"); line.className = "line";
+      var num = document.createElement("span"); num.className = "num"; num.textContent = item[0];
+      var title = document.createElement("strong"); title.textContent = item[1];
+      var desc = document.createElement("small"); desc.textContent = item[2];
+      var button = document.createElement("button"); button.className = "btn ghost small"; button.type = "button"; button.textContent = "Copier le numéro";
+      button.addEventListener("click", function () { copyText(item[0]); });
+      line.appendChild(num); line.appendChild(title); line.appendChild(desc); line.appendChild(button); list.appendChild(line);
+    });
+  }
+  function copyText(value) {
+    try { navigator.clipboard.writeText(value).then(function () { toast("Copié"); }, function () { toast("Sélectionnez et copiez : " + value); }); }
+    catch (e) { toast("Sélectionnez et copiez : " + value); }
+  }
+  countrySelect.addEventListener("change", renderContacts);
+  renderContacts();
+
+  /* Toast + copy */
+  var toastT;
+  function toast(msg) { var t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove("show"); }, 2600); }
+  $$("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var v = b.getAttribute("data-copy");
+      try { navigator.clipboard.writeText(v).then(function () { toast("Copié"); }, function () { toast("Sélectionnez et copiez : " + v); }); }
+      catch (e) { toast("Sélectionnez et copiez : " + v); }
+    });
+  });
+
+  /* Quick exit */
+  $("#exit").addEventListener("click", function () { $("#hidden-screen").hidden = false; });
+  $("#back").addEventListener("click", function () { $("#hidden-screen").hidden = true; });
+
+  /* Tabs: situations */
+  var types = [
+    { k: "Dans la rue", t: "Harcèlement de rue", d: "Remarques, sifflements, suivi, gestes ou insistance dans l’espace public. Cela reste du harcèlement, même si cela « ne dure qu’un instant ».", l: ["Rejoignez un lieu éclairé ou fréquenté (commerce, station).", "Demandez de l’aide à un commerçant ou à une personne proche.", "Notez le lieu, l’heure et une description, dès que vous le pouvez."] },
+    { k: "Au travail", t: "Harcèlement au travail", d: "Propos, gestes, messages ou pressions répétés par un collègue ou un supérieur, qui rendent votre quotidien pénible.", l: ["Gardez les messages, courriels et noms des témoins.", "Parlez-en aux représentants du personnel ou aux ressources humaines.", "Contactez un organisme d’aide aux victimes pour connaître vos options."] },
+    { k: "En ligne", t: "Cyberharcèlement", d: "Messages insistants, insultes, menaces ou diffusion d’images sans votre accord, sur les réseaux ou par messagerie.", l: ["Ne répondez pas, faites des captures d’écran datées.", "Bloquez et signalez le compte à la plateforme.", "Parlez-en à une personne de confiance avant de décider de la suite."] },
+    { k: "Aux études", t: "Harcèlement aux études", d: "Comportements déplacés d’un camarade ou d’un enseignant, pressions ou rumeurs dans le cadre universitaire.", l: ["Contactez le service de santé ou la cellule d’écoute de votre établissement.", "Conservez les échanges et notez les faits.", "Vous pouvez demander à ne plus être en contact avec la personne."] }
+  ];
+  var tabs = $("#tabs"), panel = $("#tabpanel");
+  function selTab(i) {
+    $$(".tab", tabs).forEach(function (b, j) { b.setAttribute("aria-selected", String(i === j)); b.tabIndex = i === j ? 0 : -1; });
+    var x = types[i]; panel.innerHTML = "";
+    var h = document.createElement("h3"); h.textContent = x.t;
+    var p = document.createElement("p"); p.textContent = x.d; p.style.color = "var(--muted)";
+    var s = document.createElement("strong"); s.textContent = "Ce que vous pouvez faire";
+    var ul = document.createElement("ul");
+    x.l.forEach(function (e) { var li = document.createElement("li"); li.textContent = e; ul.appendChild(li); });
+    panel.append(h, p, s, ul);
+  }
+  types.forEach(function (x, i) {
+    var b = document.createElement("button"); b.className = "tab"; b.type = "button"; b.setAttribute("role", "tab"); b.textContent = x.k;
+    b.addEventListener("click", function () { selTab(i); });
+    b.addEventListener("keydown", function (e) {
+      var n = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!n) return;
+      var j = (i + n + types.length) % types.length; selTab(j); $$(".tab", tabs)[j].focus();
+    });
+    tabs.appendChild(b);
+  });
+  selTab(0);
+
+  /* Breathing */
+  var orb = $("#orb"), phase = $("#phase"), bb = $("#breathBtn"), running = false, timers = [];
+  function step(name, label, ms, next) { orb.className = "orb " + name; phase.textContent = label; timers.push(setTimeout(next, ms)); }
+  function cycle() {
+    if (!running) return;
+    step("in", "Inspirez…", 4000, function () { step("in hold", "Retenez…", 2000, function () { step("out", "Expirez doucement…", 6000, cycle); }); });
+  }
+  bb.addEventListener("click", function () {
+    running = !running;
+    if (running) { bb.textContent = "Arrêter"; cycle(); }
+    else { timers.forEach(clearTimeout); timers = []; orb.className = "orb"; phase.textContent = "C’est bien. Vous pouvez recommencer quand vous voulez."; bb.textContent = "Recommencer"; }
+  });
+
+  /* Checklist + pledges */
+  var boxes = $$("#checks input");
+  function meter() { var n = boxes.filter(function (b) { return b.checked; }).length; $("#meterFill").style.width = (n / boxes.length * 100) + "%"; $("#meterTxt").textContent = n + " sur " + boxes.length + " étapes faites" + (n === boxes.length ? ". Bravo, prenez soin de vous." : ""); }
+  boxes.forEach(function (b) { b.addEventListener("change", meter); });
+  var pbox = $$("#pledges input");
+  function pledge() { var n = pbox.filter(function (b) { return b.checked; }).length; $("#pledgeTxt").textContent = n === 0 ? "Aucun engagement pour l’instant." : n === pbox.length ? "Merci. Vous êtes prête à agir sur les quatre points." : n + " engagement" + (n > 1 ? "s" : "") + " sur " + pbox.length + "."; }
+  pbox.forEach(function (b) { b.addEventListener("change", pledge); });
+
+  /* Agir */
+  var acts = [
+    { k: "Soutenir une amie", t: "Soutenir une proche", d: "Écoutez sans juger, dites-lui « je te crois », et laissez-la décider de la suite.", s: ["Proposez un moment calme pour parler.", "Évitez de poser trop de questions sur les détails.", "Proposez de l’accompagner dans ses démarches, si elle le souhaite."] },
+    { k: "Réagir en tant que témoin", t: "Intervenir en sécurité", d: "Choisissez l’une des 5 façons d’intervenir présentées plus bas. Votre sécurité compte aussi.", s: ["Évaluez la situation avant d’agir.", "Parlez à la personne visée, pas à l’agresseur.", "Appelez les secours si quelqu’un est en danger."] },
+    { k: "Former mon équipe", t: "Sensibiliser au travail", d: "Un atelier d’une heure suffit pour poser des repères communs et libérer la parole.", s: ["Proposez une courte réunion de sensibilisation.", "Affichez les numéros d’aide dans les espaces communs.", "Rappelez que les signalements seront pris au sérieux."] },
+    { k: "Partager le site", t: "Faire connaître HER VOICE", d: "Plus de femmes sauront où trouver de l’aide si chacune en parle autour d’elle.", s: ["Envoyez le lien à une personne de confiance.", "Partagez la page « Support HER VOICE ».", "Parlez-en dans votre association ou votre école."] }
+  ];
+  var ch = $("#choices"), res = $("#result");
+  function pick(i) {
+    $$(".chip", ch).forEach(function (b, j) { b.setAttribute("aria-pressed", String(i === j)); });
+    var x = acts[i]; res.innerHTML = "";
+    var h = document.createElement("h3"); h.textContent = x.t;
+    var p = document.createElement("p"); p.textContent = x.d; p.style.color = "var(--muted)";
+    var ul = document.createElement("ul"); ul.style.cssText = "margin:0;padding-left:1.2em;display:grid;gap:8px;color:var(--muted)";
+    x.s.forEach(function (e) { var li = document.createElement("li"); li.textContent = e; ul.appendChild(li); });
+    res.append(h, p, ul);
+    res.style.animation = "none"; void res.offsetWidth; res.style.animation = "";
+  }
+  acts.forEach(function (x, i) { var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.setAttribute("aria-pressed", "false"); b.textContent = x.k; b.addEventListener("click", function () { pick(i); }); ch.appendChild(b); });
+  pick(0);
+
+  /* Dons (démo) */
+  var impact = { 5: "5 € financent 30 fiches d’information (exemple).", 15: "15 € permettent d’imprimer 100 fiches d’information (exemple).", 30: "30 € financent un atelier de sensibilisation d’une heure (exemple).", 50: "50 € financent une demi-journée de formation d’équipe (exemple)." };
+  $$("#amounts .chip").forEach(function (b) {
+    b.addEventListener("click", function () {
+      $$("#amounts .chip").forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+      $("#donMsg").textContent = impact[b.getAttribute("data-v")];
+    });
+  });
+  $("#donBtn").addEventListener("click", function () { toast("Démo : aucun paiement n’a été effectué. Merci pour l’intention !"); });
+
+  /* Témoignages */
+  var places = ["Tous", "Au travail", "Dans la rue", "En ligne", "Aux études"];
+  var items = [
+    { id: 1, p: "Au travail", t: "Pendant des mois, j’ai cru que j’exagérais. Le jour où j’ai tout écrit sur une feuille, j’ai compris que ce n’était pas normal. Parler à une collègue de confiance a tout changé.", n: 24 },
+    { id: 2, p: "Dans la rue", t: "Je changeais de trottoir sans m’en rendre compte. Quand une passante m’a simplement demandé l’heure en s’approchant de moi, j’ai respiré. Ce petit geste m’a donné du courage.", n: 41 },
+    { id: 3, p: "En ligne", t: "Les messages ne s’arrêtaient pas. Bloquer et signaler m’a fait du bien, et en parler à ma sœur m’a permis de ne plus porter ça seule.", n: 18 },
+    { id: 4, p: "Aux études", t: "J’avais peur que mon avis ne compte pas. La cellule d’écoute de mon université m’a crue dès la première phrase. Je ne l’oublierai jamais.", n: 33 },
+    { id: 5, p: "Au travail", t: "Je ne voulais pas porter plainte, juste que cela cesse. J’ai découvert que je pouvais choisir ma façon d’agir, à mon rythme.", n: 29 },
+    { id: 6, p: "En ligne", t: "Se sentir comprise sans avoir à se justifier, c’est déjà énorme. Merci à celles qui racontent : leurs mots m’ont aidée à trouver les miens.", n: 52 }
+  ];
+  var nextId = 100, filt = "Tous", sortBy = "new", wall = $("#wall"), fbox = $("#filters"), likes = {};
+  function card(it) {
+    var q = document.createElement("article"); q.className = "quote";
+    var m = document.createElement("div"); m.className = "mark"; m.setAttribute("aria-hidden", "true"); m.textContent = "“";
+    var p = document.createElement("p"); p.textContent = it.t;
+    var f = document.createElement("footer");
+    var tag = document.createElement("span"); tag.className = "tag"; tag.textContent = it.p + (it.mine ? " · votre texte (démo)" : "");
+    var lb = document.createElement("button"); lb.type = "button"; lb.className = "like";
+    lb.innerHTML = '<svg><use href="#heart"/></svg><span></span>';
+    var sp = lb.querySelector("span");
+    function upd() { sp.textContent = "Je suis touchée · " + (it.n + (likes[it.id] ? 1 : 0)); lb.setAttribute("aria-pressed", String(!!likes[it.id])); }
+    lb.addEventListener("click", function () { likes[it.id] = !likes[it.id]; upd(); });
+    upd();
+    f.append(tag, lb); q.append(m, p, f); return q;
+  }
+  function render() {
+    wall.innerHTML = "";
+    var list = items.filter(function (it) { return filt === "Tous" || it.p === filt; });
+    if (sortBy === "touch") list = list.slice().sort(function (a, b) { return (b.n + (likes[b.id] ? 1 : 0)) - (a.n + (likes[a.id] ? 1 : 0)); });
+    list.forEach(function (it) { wall.appendChild(card(it)); });
+    $("#countLine").textContent = list.length === 0 ? "Aucun témoignage pour ce lieu pour l’instant." : list.length + (list.length > 1 ? " témoignages" : " témoignage") + (filt === "Tous" ? "" : " · " + filt);
+  }
+  places.forEach(function (n) {
+    var b = document.createElement("button"); b.type = "button"; b.className = "tab"; b.textContent = n; b.setAttribute("aria-selected", String(n === filt));
+    b.addEventListener("click", function () { filt = n; $$(".tab", fbox).forEach(function (o) { o.setAttribute("aria-selected", String(o === b)); }); render(); });
+    fbox.appendChild(b);
+  });
+  $("#sort").addEventListener("change", function (e) { sortBy = e.target.value; render(); });
+  render();
+
+  var tText = $("#tText");
+  tText.addEventListener("input", function () { $("#tCount").textContent = tText.value.length + " / 500"; });
+  $("#tForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var m = $("#tMsg"), v = tText.value.trim();
+    if (v.length < 20) { m.className = "err"; m.textContent = "Écrivez au moins quelques phrases (20 caractères) pour publier."; return; }
+    if (/[\w.+-]+@[\w-]+\.\w+/.test(v) || /\d[\d .-]{8,}\d/.test(v)) { m.className = "err"; m.textContent = "Votre texte semble contenir un e-mail ou un numéro. Retirez-le pour rester anonyme."; return; }
+    items.unshift({ id: nextId++, p: $("#tPlace").value, t: v, n: 0, mine: true });
+    filt = "Tous"; sortBy = "new"; $("#sort").value = "new";
+    $$(".tab", fbox).forEach(function (o, i) { o.setAttribute("aria-selected", String(i === 0)); });
+    render(); tText.value = ""; $("#tCount").textContent = "0 / 500";
+    m.className = "ok"; m.textContent = "Merci pour votre courage. Votre texte est affiché en haut de la liste (démo, non enregistré).";
+    toast("Témoignage ajouté (démo)");
+  });
+
+  /* Contact (démo) */
+  var cText = $("#cText");
+  cText.addEventListener("input", function () { $("#cCount").textContent = cText.value.length + " / 800"; });
+  $("#cForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var m = $("#cMsg");
+    if (cText.value.trim().length < 5) { m.className = "err"; m.textContent = "Écrivez un petit message avant d’envoyer."; return; }
+    m.className = "ok"; m.textContent = "Merci ! Dans une vraie version, notre équipe vous répondrait ici. Pour cette démo, rien n’a été envoyé ni enregistré.";
+    cText.value = ""; $("#cCount").textContent = "0 / 800";
+  });
+})();
+</script>
